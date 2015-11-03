@@ -31,6 +31,8 @@ void ofApp::setup()
     ofEnableAlphaBlending();
     ofSetFrameRate(60);
 
+	queue.setMaximumTasks(10);
+
     for (int i = 0; i < 1000; ++i)
     {
         std::string name = "Counting Task #" + ofToString(i);

@@ -238,6 +238,10 @@ public:
         UNLIMITED_TASKS = -1
     };
 
+	/// \brief Update method callback.
+	/// \param args The args pass with the update event.
+	void update(ofEventArgs& args);
+
 protected:
     typedef Poco::AutoPtr<Poco::TaskNotification> TaskNotificationPtr;
 
@@ -290,9 +294,6 @@ protected:
     /// \brief A typedef for a ReverseTaskMap.
     typedef std::map<TaskPtr, TaskHandle> TaskIDMap;
 
-    /// \brief Update method callback.
-    /// \param args The args pass with the update event.
-    void update(ofEventArgs& args);
 
     /// \brief Handle notifications from the Notification queue.
     /// \param pNotification a pointer to the notification.
@@ -336,10 +337,10 @@ TaskQueue_<TaskHandle>::TaskQueue_(int maximumTasks):
     _taskManager(Poco::ThreadPool::defaultPool())
 {
     // Add the ofEvent().update listener.
-    ofAddListener(ofEvents().update,
-                  this,
-                  &TaskQueue_<TaskHandle>::update,
-                  OF_EVENT_ORDER_APP);
+//    ofAddListener(ofEvents().update,
+//                  this,
+//                  &TaskQueue_<TaskHandle>::update,
+//                  OF_EVENT_ORDER_APP);
 
     // Add this class as a TaskManager notification observer.
     _taskManager.addObserver(TaskQueueObserver(*this, &TaskQueue_<TaskHandle>::onNotification));
@@ -353,7 +354,7 @@ TaskQueue_<TaskHandle>::TaskQueue_(int maximumTasks,
     _taskManager(pool)
 {
     // Add the ofEvent().update listener.
-    ofAddListener(ofEvents().update, this, &TaskQueue_<TaskHandle>::update, OF_EVENT_ORDER_APP);
+//    ofAddListener(ofEvents().update, this, &TaskQueue_<TaskHandle>::update, OF_EVENT_ORDER_APP);
 
     // Add this class as a TaskManager notification observer.
     _taskManager.addObserver(TaskQueueObserver(*this, &TaskQueue_<TaskHandle>::onNotification));
@@ -364,7 +365,7 @@ template<typename TaskHandle>
 TaskQueue_<TaskHandle>::~TaskQueue_()
 {
     // Remove the ofEvent().update listener.
-    ofRemoveListener(ofEvents().update, this, &TaskQueue_<TaskHandle>::update, OF_EVENT_ORDER_APP);
+    //ofRemoveListener(ofEvents().update, this, &TaskQueue_<TaskHandle>::update, OF_EVENT_ORDER_APP);
 
     // Cancel all tasks currently running.
     _taskManager.cancelAll();
