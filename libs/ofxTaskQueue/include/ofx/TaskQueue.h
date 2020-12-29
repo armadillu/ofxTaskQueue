@@ -318,9 +318,11 @@ protected:
     /// \brief A typedef for a ReverseTaskMap.
     typedef std::map<TaskPtr, TaskHandle> TaskIDMap;
 
+	public:
     /// \brief Update method callback.
     /// \param args The args pass with the update event.
     void update(ofEventArgs& args);
+	protected:
 
     /// \brief Handle notifications from the Notification queue.
     /// \param pNotification a pointer to the notification.
